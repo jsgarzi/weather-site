@@ -4,27 +4,38 @@ const api = '773470a2496008d31462265d05fc9252';
 
 let queryURL = 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&units=imperial&appid=' + api; 
 
-let currentTime = moment().format("MMM, Do, YYYY");
-
 
 $.ajax({
-    url: queryURL,
-    method: "GET"
+    url: queryURL
 }).then(function (response){
     console.log(response)
     //city
-    console.log(response.name)
-    
+    let city = response.name
+    const cityEl = $("#current-WTI")
+    cityEl.append(city + " ")
+    console.log(city)
+    //date
+    let currentTime = moment().format("MMM, Do, YYYY");
+    const currTimeEl = $("#current-WTI");
+    currTimeEl.append("("+currentTime+") ");
+    console.log("("+currentTime+")");
     //current weather
-    console.log(response.main.temp)
+    let currtWeath = response.main.temp
+    console.log("Temperature: " + currtWeath + " °F")
     //current cond
-    console.log(response.weather[0].main)
+    let condition = response.weather[0].main
+    console.log(condition)
     //humidity %
-    console.log(response.main.humidity)
+    let humidity = response.main.humidity
+    console.log(humidity + "% Humidity")
     //wind speed mph 
-    console.log(response.wind.speed)  
-    //uv
-
+    let windSpeed = response.wind.speed
+    console.log(windSpeed +" mph")  
+    //uv??
+    
 });
 
-console.log("("+currentTime+")");
+// let currentTime = moment().format("MMM, Do, YYYY");
+// const currTimeEl = $("#current-WTI");
+// currTimeEl.append("("+currentTime+") ");
+// console.log("("+currentTime+")");

@@ -1,9 +1,34 @@
+// let city;
+$(document).ready(function(){
+
 
 $("#city-search").on("click", function () {
-    var city = $("#location").val();
+    let city = $("#location").val();    
+    getWeather(city);
+});
+
+$("#location").keypress(function(e){
+    if(e.which == 13){
+        e.preventDefault();
+        $("city-search").click(function(){
+            let city = $("#location").val();
+            getWeather(city);
+        });
+    }
+});
+
+// let currentTime = moment().format("MMM, Do, YYYY");
+// const currTimeEl = $("#current-WTI");
+// currTimeEl.append("("+currentTime+") ");
+// console.log("("+currentTime+")");
+
+// need to call weather for next 5 day 
+
+function getWeather(city){
+    console.log(city)
+
     const api = '773470a2496008d31462265d05fc9252';
     let queryURL = 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&units=imperial&appid=' + api;
-    
     $.ajax({
         type: "GET",
         url: queryURL
@@ -31,23 +56,7 @@ $("#city-search").on("click", function () {
         let windSpeed = response.wind.speed
         console.log(windSpeed + " mph")
         //uv??
-    
     });
+}
 })
-
-
-
-
-
-
-
-
-// let currentTime = moment().format("MMM, Do, YYYY");
-// const currTimeEl = $("#current-WTI");
-// currTimeEl.append("("+currentTime+") ");
-// console.log("("+currentTime+")");
-
-// need to call weather for next 5 day 
-
-
 

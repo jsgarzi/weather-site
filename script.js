@@ -7,14 +7,10 @@ $("#city-search").on("click", function () {
     getWeather(city);
 });
 
-$("#location").keypress(function(e){
-    if(e.which == 13){
-        e.preventDefault();
-        $("city-search").click(function(){
-            let city = $("#location").val();
-            getWeather(city);
-        });
-    }
+$("#e-submit").on('submit',function(e){
+    e.preventDefault()
+    let city = $("#location").val();
+    getWeather(city);
 });
 
 // let currentTime = moment().format("MMM, Do, YYYY");

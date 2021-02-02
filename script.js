@@ -31,16 +31,19 @@ function getWeather(city){
     }).then(function (response) {
         console.log(response)
         //city
-        let city = response.name
-        const cityEl = $("#current-WTI")
-        cityEl.append(city + " ")
+        let city = response.name;
+        let cityName = $("#cityName");
+        cityName.addClass("cityNStyle");
+        cityName.append(city + " ");
         //date
         let currentTime = moment().format("MMM, Do, YYYY");
-        const currTimeEl = $("#current-WTI");
+        let currTimeEl = $("#date");
         currTimeEl.append("(" + currentTime + ") ");
-        console.log("(" + currentTime + ")");
         //current weather
-        let currtWeath = response.main.temp
+        let currtWeath = response.main.temp;
+        let currentW = $("#currentW");
+        currentW.addClass("currentWStyle");
+        currentW.append(currtWeath + " " + "Degrees Farenheight");
         console.log("Temperature: " + currtWeath + " °F")
         //current cond
         let condition = response.weather[0].main

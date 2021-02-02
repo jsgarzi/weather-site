@@ -43,10 +43,11 @@ function getWeather(city){
         let currtWeath = response.main.temp;
         let currentW = $("#currentW");
         currentW.addClass("currentWStyle");
-        currentW.append(currtWeath + " " + "Degrees Farenheight");
-        console.log("Temperature: " + currtWeath + " °F")
+        currentW.append("It is currently " +currtWeath + " " + " \u00B0F");
         //current cond
-        let condition = response.weather[0].main
+        let condition = response.weather[0].icon
+        let iconURL =  'http://openweathermap.org/img/wn/'+ condition +'.png';
+        $("#condImg").attr("src", iconURL);
         console.log(condition)
         //humidity %
         let humidity = response.main.humidity

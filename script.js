@@ -48,13 +48,17 @@ function getWeather(city){
         let condition = response.weather[0].icon
         let iconURL =  'http://openweathermap.org/img/wn/'+ condition +'.png';
         $("#condImg").attr("src", iconURL);
-        console.log(condition)
+        console.log(condition);
         //humidity %
-        let humidity = response.main.humidity
-        console.log(humidity + "% Humidity")
+        let humidity = response.main.humidity;
+        let curHum = $("#curHum");
+        curHum.addClass("curHumStyle");
+        curHum.append("Humidity: " + humidity + "%");
         //wind speed mph 
-        let windSpeed = response.wind.speed
-        console.log(windSpeed + " mph")
+        let windSpeed = response.wind.speed;
+        let curWind = $("#curWind");
+        curWind.addClass("curWindStyle");
+        curWind.append("Wind: " + windSpeed + " MPH");
         //uv??
     });
 }

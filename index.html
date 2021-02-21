@@ -26,26 +26,30 @@
     <div class="container">
         <div class="row">
             <div class="col-3 p-0">
-                
-                    <form id="e-submit" class=" col-12 form-inline d-flex justify-content-center md-form form-sm pt-2 pb-2 px-0 bg-secondary">
-                        <input class="form-control form-control-sm w-75" type="text" id="location"
-                            placeholder="Please input city..." aria-label="Search">
-                            <a class = "col-2"  id="city-search" style="color: white;"><i class="fas fa-search"
+
+                <form id="e-submit"
+                    class=" col-12 form-inline d-flex justify-content-center md-form form-sm pt-2 pb-2 px-0 bg-secondary">
+                    <input class="form-control form-control-sm w-75" type="text" id="location"
+                        placeholder="Please input city..." aria-label="Search">
+                    <a class="col-2" id="city-search" style="color: white;"><i class="fas fa-search"
                             aria-hidden="true"></i></a>
-                    </form>
-                
-                <div style="height: 500px; background-color: black;"> </div>
+                </form>
+
+                <div style="height: 500px; background-color: black;"> 
+                    <div class="container" id="sH">
+                    </div>
+                </div>
             </div>
 
             <div class="col-9 p-0">
                 <div style="height: 400px; background-color: gray;">
                     <div class=row>
-                        <div class="pl-3 mt-2" id="cityName"> </div> <img id="condImg" src="">
+                        <div class="pl-5 mt-2 mb-0" id="cityName"> </div> <img class="pl-3" id="condImg" src="">
                     </div>
-                    <div class="row pl-3" id="date"></div>
-                    <div class="row pl-3" id="currentW"></div>
-                    <div class="row pl-3" id="curHum"></div>
-                    <div class="row pl-3" id="curWind"></div>
+                    <div class="row pl-5 pt-0 font-italic" id="date"></div>
+                    <div class="row pl-5 pt-2" id="currentW"></div>
+                    <div class="row pl-5 pt-2" id="curHum"></div>
+                    <div class="row pl-5 pt-2" id="curWind"></div>
                 </div>
                 <div style="height: 200px; background-color: blue;"> </div>
             </div>

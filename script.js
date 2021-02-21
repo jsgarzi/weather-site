@@ -1,18 +1,18 @@
 $(document).ready(function () {
 
-
+    let cityH = [];
 
     $("#city-search").on("click", function () {
         let city = $("#location").val();
         getWeather(city);
-        searchHistory(city);
+        // searchHistory(city);
     });
 
     $("#e-submit").on('submit', function (e) {
         e.preventDefault()
         let city = $("#location").val();
         getWeather(city);
-        searchHistory(city);
+        // searchHistory(city);
     });
 
     $("#sH").on("click", "div", function () {
@@ -25,11 +25,13 @@ $(document).ready(function () {
 
     function searchHistory(currC) {
         let searchRow = $('<div>');
+        cityH.push(currC);
         searchRow.addClass("row pl-3 searchRow");
         searchRow.css({ "background-color": "#7698B3", "cursor": "pointer" });
         searchRow.attr("data-city", currC)
         searchRow.text(currC);
         $("#sH").append(searchRow);
+        console.log(cityH);
     }
 
 
@@ -76,8 +78,15 @@ $(document).ready(function () {
             let lat = response.coord.lat;
             let lon = response.coord.lon;
             oneCall(lat, lon);
-
-
+            let newCity = true;
+            for (let i = 0; i < cityH.length ; i ++){
+                if (city == cityH[i]){
+                    newCity = false
+                }    
+            }
+            if (newCity == true) {
+                searchHistory(city); 
+            }
         });
     }
 
@@ -88,11 +97,25 @@ $(document).ready(function () {
             type: "GET",
             url: queryURL
         }).then(function (response) {
-            console.log(response)
+            console.log(response);
+            //uv
+            let UVI = response.current.uvi;
+            const UVICont = $("#UVICont");
+            console.log(UVI);
+            if (UVI <= 2){
+                UVICont.css( "color" , "#33673B");
+                UVICont.append("UV Index: " + UVI);
+            }
+            else if (UVI > 2 && UVI <= 6){
+                UVICont.css("color" , "#C36F09");
+                UVICont.append("UV Index: " + UVI);
+            }
+            else {
+                UVICont.css( "color" , "#91171F");
+                UVICont.append("UV Index: " + UVI);
+            }
         });
     }
-
-    searchHistory();
 
 })
 

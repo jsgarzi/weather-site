@@ -7,4 +7,4 @@ Getting a grasp of some of the front end javascript was slighlty challenging, bu
 
 
 Screen of final product:
-![alt text] (finalWeather.jpg)
+![alt text] (https://raw.github.com/{jsgarzi}/{weather-site}/{main}/finalWeather.jpg)

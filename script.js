@@ -1,6 +1,18 @@
 $(document).ready(function () {
 
-    let cityH = [];
+    // localStorage.clear();
+
+
+    let cityH = JSON.parse(localStorage.getItem('cityH'));
+    // console.log(cityH)
+
+    if (cityH != null ){
+        for ( let i = 0 ; i <= cityH.length ; i++){
+            searchHistory(cityH[i]);
+        }
+    } else {
+        cityH = [];
+    }
 
     function clear() {
         let currW = $(".clearable");
@@ -23,16 +35,14 @@ $(document).ready(function () {
     $("#sH").on("click", "div", function () {
         let prevSearch = $(this).attr("data-city");
         if (prevSearch != $("#cityName").text()) {
-            console.log($("#cityName").text())
             getWeather(prevSearch);
         }
     })
 
     function searchHistory(currC) {
         let searchRow = $('<div>');
-        cityH.push(currC);
-        searchRow.addClass("row pl-3 searchRow");
-        searchRow.css({ "background-color": "#7698B3", "cursor": "pointer" });
+        searchRow.addClass("row pl-3 searchRow border-top");
+        searchRow.css({ "background-color": "#7698B3", "cursor": "pointer" , "font-size" : "20px" , "font-weight" : "bold"});
         searchRow.attr("data-city", currC)
         searchRow.text(currC);
         $("#sH").append(searchRow);
@@ -41,14 +51,13 @@ $(document).ready(function () {
 
 
     function getWeather(city) {
-        clear();
         const api = '773470a2496008d31462265d05fc9252';
         let queryURL = 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&units=imperial&appid=' + api;
         $.ajax({
             type: "GET",
             url: queryURL
         }).then(function (response) {
-            console.log(response)
+            clear();
             //city
             let city = response.name;
             let cityName = $("#cityName");
@@ -67,7 +76,6 @@ $(document).ready(function () {
             let condition = response.weather[0].icon
             let iconURL = 'http://openweathermap.org/img/wn/' + condition + '.png';
             $("#condImg").attr("src", iconURL);
-            console.log(condition);
             //humidity %
             let humidity = response.main.humidity;
             let curHum = $("#curHum");
@@ -89,6 +97,8 @@ $(document).ready(function () {
                 }
             }
             if (newCity == true) {
+                cityH.push(city);
+                localStorage.setItem('cityH',JSON.stringify(cityH));
                 searchHistory(city);
             }
         });
@@ -118,9 +128,49 @@ $(document).ready(function () {
                 UVICont.css("color", "#91171F");
                 UVICont.append("UV Index: " + UVI);
             }
+            //5 day (1 , 2, 3, 4, 5)
+
+            console.log(response.daily[1])
+            for (let i = 1; i <= 5; i++) {
+                const dayEl = $('<div>');
+                dayEl.addClass('col');
+                //time
+                let dateEl = $('<div>');
+                dateEl.addClass('col-12');
+                let timeA = response.daily[i].dt * 1000;
+                let fullDate = new Date(timeA);
+                let mo = fullDate.getUTCMonth() + 1;
+                let day = fullDate.getUTCDate();
+                let yr = fullDate.getUTCFullYear();
+                let betterDate = mo + '/' + day + '/' + yr;
+                console.log(betterDate);
+                dateEl.append(betterDate);
+                dayEl.append(dateEl);
+                //icon
+                let iconEl = $('<div>');
+                iconEl.addClass('col-12');
+                let condition = response.daily[i].weather[0].icon;
+                let iconURL = 'http://openweathermap.org/img/wn/' + condition + '.png';
+                let imgEl = $('<img>')
+                imgEl.attr('src', iconURL);
+                iconEl.append(imgEl);
+                dayEl.append(iconEl);
+                //temp
+                let tempEl = $('<div>');
+                tempEl.addClass('col-12');
+                let dailyTemp = response.daily[i].temp.day
+                tempEl.append('Temp: ' + dailyTemp);
+                dayEl.append(tempEl);
+                let humEl = $('<div>');
+                humEl.addClass('col-12');
+                let dailyHum = response.daily[i].humidity;
+                humEl.append('Humidity: ' + dailyHum +'%');
+                dayEl.append(humEl);
+                $('#5day').append(dayEl);
+
+            }
         });
     }
-
     getWeather('New Brunswick');
 })
 

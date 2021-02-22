@@ -2,6 +2,11 @@ $(document).ready(function () {
 
     let cityH = [];
 
+    function clear() {
+        let currW = $(".clearable");
+        currW.empty();
+    }
+
     $("#city-search").on("click", function () {
         let city = $("#location").val();
         getWeather(city);
@@ -36,8 +41,7 @@ $(document).ready(function () {
 
 
     function getWeather(city) {
-        console.log(city)
-
+        clear();
         const api = '773470a2496008d31462265d05fc9252';
         let queryURL = 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&units=imperial&appid=' + api;
         $.ajax({
@@ -79,13 +83,13 @@ $(document).ready(function () {
             let lon = response.coord.lon;
             oneCall(lat, lon);
             let newCity = true;
-            for (let i = 0; i < cityH.length ; i ++){
-                if (city == cityH[i]){
+            for (let i = 0; i < cityH.length; i++) {
+                if (city == cityH[i]) {
                     newCity = false
-                }    
+                }
             }
             if (newCity == true) {
-                searchHistory(city); 
+                searchHistory(city);
             }
         });
     }
@@ -102,20 +106,21 @@ $(document).ready(function () {
             let UVI = response.current.uvi;
             const UVICont = $("#UVICont");
             console.log(UVI);
-            if (UVI <= 2){
-                UVICont.css( "color" , "#33673B");
+            if (UVI <= 2) {
+                UVICont.css("color", "#33673B");
                 UVICont.append("UV Index: " + UVI);
             }
-            else if (UVI > 2 && UVI <= 6){
-                UVICont.css("color" , "#C36F09");
+            else if (UVI > 2 && UVI <= 6) {
+                UVICont.css("color", "#C36F09");
                 UVICont.append("UV Index: " + UVI);
             }
             else {
-                UVICont.css( "color" , "#91171F");
+                UVICont.css("color", "#91171F");
                 UVICont.append("UV Index: " + UVI);
             }
         });
     }
 
+    getWeather('New Brunswick');
 })
 

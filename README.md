@@ -7,5 +7,4 @@ Getting a grasp of some of the front end javascript was slighlty challenging, bu
 
 
 Screen of final product:
-![Screenshot]
-(finalWeather.jpeg)
+![Screenshot] (finalWeather.jpg)
